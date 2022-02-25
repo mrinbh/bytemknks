@@ -1,0 +1,56 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id "io.spring.dependency-management" version '1.0.10.RELEASE'
+    id "com.microsoft.azure.azurewebapp" version "1.2.0"
+    id 'org.springframework.boot' version '2.6.3'
+}
+
+group 'com.ms.wm.cloudation.bytethecloud'
+version '1.0-SNAPSHOT'
+
+apply plugin: "io.spring.dependency-management"
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation files('C:\\Users\\Administrator\\Downloads\\byte-monkey.jar')
+
+    /*spring-boot libs*/
+    implementation 'org.springframework.boot:spring-boot:latest.integration'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:latest.integration'
+    implementation 'org.springframework.boot:spring-boot-starter-web:latest.integration'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: 'latest.integration'
+    implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '10.2.0.jre8'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: 'latest.integration'
+    implementation group: 'com.azure', name: 'azure-messaging-eventhubs', version: 'latest.integration'
+}
+
+bootJar{
+    archiveFileName.set("app.jar")
+     mainClass= 'com.ms.wm.cloudathon.ApplicationStarter'
+}
+
+azurewebapp {
+    subscription ='b54acde2-eb6d-488b-8439-066dbd54def8'
+    resourceGroup = 'bytemnky-rg'
+    appName = 'bytethecloud-spring-boot'
+    pricingTier = 'P1v2'
+    region = 'westus'
+    runtime {
+        os = 'Linux'
+        webContainer = 'Java SE'
+        javaVersion = 'Java 8'
+    }
+
+    appSettings {
+       JAVA_OPT="-javaagent:/home/JavaAgent/byte-monkey.jar=mode:fault"
+    }
+    auth = {
+        type='device_code'
+    }
+
+}
