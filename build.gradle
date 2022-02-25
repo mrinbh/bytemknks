@@ -27,6 +27,8 @@ dependencies {
     implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '10.2.0.jre8'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: 'latest.integration'
     implementation group: 'com.azure', name: 'azure-messaging-eventhubs', version: 'latest.integration'
+    implementation 'com.microsoft.azure:applicationinsights-spring-boot-starter:2.6.4'
+    implementation 'com.microsoft.azure:applicationinsights-logging-logback:2.6.4'
 }
 
 bootJar{
